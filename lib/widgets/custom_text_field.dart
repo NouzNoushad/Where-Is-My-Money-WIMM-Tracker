@@ -35,49 +35,46 @@ class ExpenseTextFormField extends StatelessWidget {
             color: color,
           ),
         );
-    return SizedBox(
-      height: 50,
-      child: TextFormField(
-        style: const TextStyle(
+    return TextFormField(
+      style: const TextStyle(
+        color: CustomColors.background4,
+      ),
+      controller: controller,
+      validator: validator,
+      onSaved: onSaved,
+      focusNode: focusNode,
+      onTapOutside: onTapOutside,
+      keyboardType: keyboardType,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      cursorColor: CustomColors.background4,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.zero,
+        prefixIcon: Icon(
+          icon,
+          size: 18,
           color: CustomColors.background4,
         ),
-        controller: controller,
-        validator: validator,
-        onSaved: onSaved,
-        focusNode: focusNode,
-        onTapOutside: onTapOutside,
-        keyboardType: keyboardType,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        cursorColor: CustomColors.background4,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.zero,
-          prefixIcon: Icon(
-            icon,
-            size: 18,
+        suffixIcon: InkWell(
+          onTap: onSuffixIconTap,
+          child: Icon(
+            suffixIcon,
+            size: 22,
             color: CustomColors.background4,
           ),
-          suffixIcon: InkWell(
-            onTap: onSuffixIconTap,
-            child: Icon(
-              suffixIcon,
-              size: 22,
-              color: CustomColors.background4,
-            ),
-          ),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            color: CustomColors.background4,
-          ),
-          fillColor: CustomColors.background1,
-          filled: true,
-          errorStyle: const TextStyle(
-            color: CustomColors.background4,
-          ),
-          enabledBorder: kOutlineInputBorder(CustomColors.background4),
-          focusedBorder: kOutlineInputBorder(CustomColors.background4),
-          errorBorder: kOutlineInputBorder(CustomColors.background4),
-          focusedErrorBorder: kOutlineInputBorder(CustomColors.background4),
         ),
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          color: CustomColors.background4,
+        ),
+        fillColor: CustomColors.background1,
+        filled: true,
+        errorStyle: const TextStyle(
+          color: CustomColors.background4,
+        ),
+        enabledBorder: kOutlineInputBorder(CustomColors.background4),
+        focusedBorder: kOutlineInputBorder(CustomColors.background4),
+        errorBorder: kOutlineInputBorder(CustomColors.background4),
+        focusedErrorBorder: kOutlineInputBorder(CustomColors.background4),
       ),
     );
   }

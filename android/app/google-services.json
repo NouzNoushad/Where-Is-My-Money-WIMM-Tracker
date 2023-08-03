@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "367491162996",
+    "firebase_url": "https://recipe-app-23de6-default-rtdb.firebaseio.com",
+    "project_id": "recipe-app-23de6",
+    "storage_bucket": "recipe-app-23de6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367491162996:android:fdd025b440d1a60b51c221",
+        "android_client_info": {
+          "package_name": "com.example.expense_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367491162996-27e2oorf2qutf2einenk0951bbudm82a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.expense_tracker",
+            "certificate_hash": "7466f445bfca3a82da5b27b54aec32f6ca517b48"
+          }
+        },
+        {
+          "client_id": "367491162996-3c98cu6l50p5trcg9lgenrddv7mvmm7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsDHCOzZA8B6Ev2XjDcB_wSlpKxy893L8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367491162996-3c98cu6l50p5trcg9lgenrddv7mvmm7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,3 +9,9 @@ class FetchDateState extends ExpenseHomeState{}
 
 class ChangeExpenseType extends ExpenseHomeState{}
 
+class ChangeCategory extends ExpenseHomeState{}
+
+class DeleteButtonState extends ExpenseHomeState{}
+
+
+

@@ -1,11 +1,14 @@
 import 'package:expense_tracker/expense_bottom_nav/cubit/bottom_nav_cubit.dart';
 import 'package:expense_tracker/expense_bottom_nav/screens/expense_bottom_nav.dart';
 import 'package:expense_tracker/expense_home/cubit/expense_home_cubit.dart';
-import 'package:expense_tracker/expense_home/screens/expense_home.dart';
+import 'package:expense_tracker/expense_home/service/expense_home_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -17,8 +20,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        // useMaterial3: true,
         primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             create: (context) => BottomNavCubit(),
           ),
           BlocProvider(
-            create: (context) => ExpenseHomeCubit(),
+            create: (context) => ExpenseHomeCubit(expenseHomeService: ExpenseHomeService()),
           ),
         ],
         child: const ExpenseBottomNavBar(),
