@@ -1,5 +1,7 @@
 import 'package:expense_tracker/expense_bottom_nav/cubit/bottom_nav_cubit.dart';
 import 'package:expense_tracker/expense_bottom_nav/screens/expense_bottom_nav.dart';
+import 'package:expense_tracker/expense_home/cubit/expense_home_cubit.dart';
+import 'package:expense_tracker/expense_home/screens/expense_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,8 +22,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => BottomNavCubit(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => BottomNavCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ExpenseHomeCubit(),
+          ),
+        ],
         child: const ExpenseBottomNavBar(),
       ),
     );

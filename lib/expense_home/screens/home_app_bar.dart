@@ -22,8 +22,7 @@ class HomeAppBar extends StatelessWidget {
           preferredSize: const Size(10, 40),
           child: Container(
               // color: Colors.yellow,
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              margin: const EdgeInsets.symmetric(vertical: 6),
               child: Row(
                 children: [
                   expenseDetails('Expense', 50),
