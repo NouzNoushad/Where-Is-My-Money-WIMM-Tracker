@@ -1,5 +1,8 @@
+import 'package:expense_tracker/expense_analysis/cubit/expense_analysis_cubit.dart';
 import 'package:expense_tracker/expense_bottom_nav/cubit/bottom_nav_cubit.dart';
 import 'package:expense_tracker/expense_bottom_nav/screens/expense_bottom_nav.dart';
+import 'package:expense_tracker/expense_goal/cubit/expense_goal_cubit.dart';
+import 'package:expense_tracker/expense_goal/service/expense_goal_service.dart';
 import 'package:expense_tracker/expense_home/cubit/expense_home_cubit.dart';
 import 'package:expense_tracker/expense_home/service/expense_home_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +32,15 @@ class MyApp extends StatelessWidget {
             create: (context) => BottomNavCubit(),
           ),
           BlocProvider(
-            create: (context) => ExpenseHomeCubit(expenseHomeService: ExpenseHomeService()),
+            create: (context) =>
+                ExpenseHomeCubit(expenseHomeService: ExpenseHomeService()),
+          ),
+          BlocProvider(
+            create: (context) => ExpenseAnalysisCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                ExpenseGoalCubit(expenseGoalService: ExpenseGoalService()),
           ),
         ],
         child: const ExpenseBottomNavBar(),

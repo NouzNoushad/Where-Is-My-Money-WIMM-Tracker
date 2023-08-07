@@ -25,12 +25,13 @@ class ExpenseListItems extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 24,
-                    backgroundColor: CustomColors.background4,
+                    backgroundColor: CustomColors.background1,
+                    child: Image.asset('assets/${expense['image']}'),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 15,
                   ),
                   Expanded(
                     child: Column(

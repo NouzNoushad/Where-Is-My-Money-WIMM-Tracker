@@ -46,6 +46,27 @@ dependencies:
   cloud_firestore: ^4.8.4
   uuid: ^3.0.7
   fluttertoast: ^8.2.2
+  fl_chart: ^0.63.0
+  flutter_native_splash: ^2.3.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter_native_splash:
+  color: "#515003"
+  image: assets/logo_small.png
+  color_dark: "#515003"
+  image_dark: assets/logo_small.png
+
+  android_12:
+    image: assets/logo_small.png
+    icon_background_color: "#515003"
+    image_dark: assets/logo_small.png
+    icon_background_color_dark: "#515003"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  min_sdk_android: 21
 
 dev_dependencies:
   flutter_test:
@@ -70,8 +91,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

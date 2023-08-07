@@ -10,6 +10,7 @@ class ExpenseModel {
   String notes;
   String amount;
   String date;
+  String image;
   DateTime createdOn;
 
   ExpenseModel({
@@ -19,6 +20,7 @@ class ExpenseModel {
     required this.notes,
     required this.amount,
     required this.date,
+    required this.image,
     required this.createdOn,
   });
 
@@ -29,6 +31,7 @@ class ExpenseModel {
       notes: json["notes"],
       amount: json["amount"],
       date: json["date"],
+      image: json["image"],
       createdOn: json["created_on"].toDate());
 
   Map<String, dynamic> toMap() => {
@@ -38,6 +41,7 @@ class ExpenseModel {
         "notes": notes,
         "amount": amount,
         "date": date,
+        "image": image,
         "created_on": createdOn,
       };
 }

@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
 
 class ExpenseHomeService {
-  saveRecord(expenseType, category, notes, amount, date, createdOn) async {
+  saveRecord(expenseType, category, notes, amount, date,image, createdOn) async {
     String uid = const Uuid().v1();
     ExpenseModel expenseModel = ExpenseModel(
         uid: uid,
@@ -15,6 +15,7 @@ class ExpenseHomeService {
         notes: notes,
         amount: amount,
         date: date,
+        image: image,
         createdOn: createdOn);
     await FirebaseFirestore.instance
         .collection(expenseDB)

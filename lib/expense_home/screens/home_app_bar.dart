@@ -1,3 +1,5 @@
+import 'package:expense_tracker/expense_analysis/cubit/expense_analysis_cubit.dart';
+import 'package:expense_tracker/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,11 +8,13 @@ import '../../core/constants.dart';
 import '../cubit/expense_home_cubit.dart';
 
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+  final PageType pageType;
+  const HomeAppBar({super.key, required this.pageType});
 
   @override
   Widget build(BuildContext context) {
     var expenseHomeCubit = BlocProvider.of<ExpenseHomeCubit>(context);
+    var expenseAnalysisCubit = BlocProvider.of<ExpenseAnalysisCubit>(context);
     return BlocBuilder<ExpenseHomeCubit, ExpenseHomeState>(
       builder: (context, state) {
         return SliverAppBar(
@@ -38,69 +42,10 @@ class HomeAppBar extends StatelessWidget {
               ? [
                   IconButton(
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Text(
-                                      'Delete this record',
-                                      style: TextStyle(
-                                        color: CustomColors.background4,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const Text(
-                                      'Are you sure?',
-                                      style: TextStyle(
-                                        color: CustomColors.background4,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    CustomColors.background4),
-                                            child: const Text(
-                                              'No',
-                                              style: TextStyle(
-                                                color: CustomColors.background1,
-                                              ),
-                                            )),
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              expenseHomeCubit.deleteRecord();
-                                              Navigator.pop(context);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    CustomColors.background4),
-                                            child: const Text(
-                                              'Yes',
-                                              style: TextStyle(
-                                                color: CustomColors.background1,
-                                              ),
-                                            )),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ));
+                      showDeleteDialog(context, () {
+                        expenseHomeCubit.deleteRecord();
+                        Navigator.pop(context);
+                      });
                     },
                     icon: const Icon(Icons.delete_rounded),
                     color: CustomColors.background4,
@@ -116,39 +61,54 @@ class HomeAppBar extends StatelessWidget {
               builder: (context, state) {
                 return Column(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () {
-                              expenseHomeCubit.swipeDate(DateState.previous);
-                            },
-                            icon: const Icon(Icons.arrow_back_ios),
-                            color: CustomColors.background4,
+                    Material(
+                      color: CustomColors.backgroundLight2,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: pageType == PageType.goals
+                                ? Container(
+                                    height: 48,
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      expenseHomeCubit
+                                          .swipeDate(DateState.previous);
+                                      expenseAnalysisCubit.groupExpense = {};
+                                    },
+                                    icon: const Icon(Icons.arrow_back_ios),
+                                    color: CustomColors.background4,
+                                  ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Center(
-                            child: Text(
-                              expenseHomeCubit.date,
-                              style: const TextStyle(
-                                  color: CustomColors.background4,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Text(
+                                expenseHomeCubit.date,
+                                style: const TextStyle(
+                                    color: CustomColors.background4,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16),
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () {
-                              expenseHomeCubit.swipeDate(DateState.next);
-                            },
-                            icon: const Icon(Icons.arrow_forward_ios),
-                            color: CustomColors.background4,
+                          Expanded(
+                            child: pageType == PageType.goals
+                                ? Container(
+                                    height: 48,
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      expenseHomeCubit
+                                          .swipeDate(DateState.next);
+                                      expenseAnalysisCubit.groupExpense = {};
+                                    },
+                                    icon: const Icon(Icons.arrow_forward_ios),
+                                    color: CustomColors.background4,
+                                  ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 );

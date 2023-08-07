@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomColors {
   static const background1 = Color.fromRGBO(239, 247, 211, 1);
   static const background2 = Color.fromRGBO(206, 220, 195, 1);
+  static const backgroundLight2 = Color.fromARGB(255, 221, 236, 209);
   static const background3 = Color.fromRGBO(167, 185, 158, 1);
   static const background4 = Color.fromRGBO(83, 90, 59, 1);
 

@@ -23,7 +23,14 @@ class _ExpenseHomeState extends State<ExpenseHome> {
   void initState() {
     expenseHomeCubit = BlocProvider.of<ExpenseHomeCubit>(context);
     expenseHomeCubit.initDate();
+    expenseHomeCubit.selectedCategory = expenseCategory.first['name'];
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    expenseHomeCubit.amountController.text = '';
+    super.dispose();
   }
 
   @override
@@ -31,7 +38,8 @@ class _ExpenseHomeState extends State<ExpenseHome> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showExpenseBottomSheet(context, expenseHomeCubit, formKey);
+          showExpenseBottomSheet(
+              context, expenseHomeCubit, formKey, PageType.record);
         },
         backgroundColor: CustomColors.background4,
         child: const Icon(
@@ -41,7 +49,7 @@ class _ExpenseHomeState extends State<ExpenseHome> {
       ),
       body: CustomScrollView(
         slivers: [
-          const HomeAppBar(),
+          const HomeAppBar(pageType: PageType.record,),
           SliverFillRemaining(
             child: Container(
               color: CustomColors.background1,

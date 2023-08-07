@@ -18,9 +18,9 @@ class ExpenseHomeCubit extends Cubit<ExpenseHomeState> {
   TextEditingController amountController = TextEditingController();
   TextEditingController notesController = TextEditingController();
 
-  String selectedCategory = expenseCategory.first;
+  String? selectedCategory = expenseCategory.first['name'];
   ExpenseType expenseType = ExpenseType.expense;
-  List<String> categories = expenseCategory;
+  List<Map<String, String>> categories = expenseCategory;
   double totalExpense = 0.0;
   double totalIncome = 0.0;
   double totalAmount = 0.0;
@@ -53,13 +53,13 @@ class ExpenseHomeCubit extends Cubit<ExpenseHomeState> {
         .fold(
             0,
             (previousValue, element) =>
-                previousValue + int.parse(element['amount']));
+                previousValue + double.parse(element['amount']));
     totalIncome = expenses
         .where((expense) => expense['expense_type'].contains('Income'))
         .fold(
             0,
             (previousValue, element) =>
-                previousValue + int.parse(element['amount']));
+                previousValue + double.parse(element['amount']));
     totalAmount = totalIncome - totalExpense;
     print('///////////////// Expense $totalExpense');
     print('///////////////// Income $totalIncome');
@@ -68,14 +68,14 @@ class ExpenseHomeCubit extends Cubit<ExpenseHomeState> {
 
   onTapExpenseButtonBar() {
     expenseType = ExpenseType.expense;
-    selectedCategory = expenseCategory.first;
+    selectedCategory = expenseCategory.first['name'];
     categories = expenseCategory;
     emit(ChangeExpenseType());
   }
 
   onTapIncomeButtonBar() {
     expenseType = ExpenseType.income;
-    selectedCategory = incomeCategory.first;
+    selectedCategory = incomeCategory.first['name'];
     categories = incomeCategory;
     emit(ChangeExpenseType());
   }
@@ -85,7 +85,9 @@ class ExpenseHomeCubit extends Cubit<ExpenseHomeState> {
     emit(ChangeCategory());
   }
 
-  amountValidator(String value) {
+  amountValidator() {
+    print('////////// value ${amountController.text}');
+    String value = amountController.text;
     if (value.isEmpty) {
       return 'Amount field is required';
     }
@@ -98,17 +100,28 @@ class ExpenseHomeCubit extends Cubit<ExpenseHomeState> {
   }
 
   saveRecord() async {
+    String? fetchImage = expenseType == ExpenseType.expense
+        ? expenseCategory
+            .where((element) => element['name'] == selectedCategory)
+            .map((e) => e['image'])
+            .toList()[0]
+        : incomeCategory
+            .where((element) => element['name'] == selectedCategory)
+            .map((e) => e['image'])
+            .toList()[0];
+    print('///////////////// image $fetchImage');
+    String image = fetchImage ?? '';
     String selectedDate = date;
-    String category = selectedCategory;
+    String? category = selectedCategory;
     String expenseTypeString =
         expenseType == ExpenseType.expense ? 'Expense' : 'Income';
     String amount = amountController.text;
     String notes = notesController.text;
     await expenseHomeService.saveRecord(expenseTypeString, category, notes,
-        amount, selectedDate, DateTime.now());
+        amount, selectedDate, image, DateTime.now());
     // clear record
     expenseType = ExpenseType.expense;
-    selectedCategory = expenseCategory.first;
+    selectedCategory = expenseCategory.first['name'];
     categories = expenseCategory;
     amountController.text = '';
     notesController.text = '';
@@ -131,5 +144,11 @@ class ExpenseHomeCubit extends Cubit<ExpenseHomeState> {
     await expenseHomeService.deleteRecord(uid);
     showDeleteButton = false;
     emit(DeleteButtonState());
+  }
+
+  @override
+  Future<void> close() {
+    amountController.dispose();
+    return super.close();
   }
 }
